@@ -1,0 +1,86 @@
+0) Debugger
+
+¿Cuál es la diferencia entre las acciones Into, Over y Through (en el menú del
+debugger)?
+
+Into: 
+El debugger se va a meter dentro del mensaje, por ejemplo si en la implementación actual se le envía el mensaje m1 a o1, va a entrar a la implementación de m1 y vas a seguir debuggeando desde ahí.
+
+Over:
+Por el contrario en over el debugger no se va a meter dentro del mensaje, va a "pasarlo por arriba" ejecutandolo pero no mostrandote lo que pasa dentro de el.
+
+
+¿Qué sucede al hacer clic en Restart?
+
+Al hacer click en restart el debugger va a volver al principio del contexto en el que se encuentre, es decir, volvería a ejecutar el mensaje que se este viendo.
+
+Recorrer el código con Into hasta la última línea del método m2. Luego hacer Restart. ¿Dónde queda ubicado el debugger? ¿Cuál es el valor de aVar?
+
+El debugger va a quedar ubicado en la primera línea del mensaje. Aunque el debugger vuelva a esa línea, el valor del colaborador aVar se vió modificado, es decir, aunque vuelvas a la primera línea del mensaje el valor del colaborador se mantiene, no se resetea.
+
+1) Colecciones
+
+1.1 Acerca de algunas colecciones muy utilizadas
+
+a) Array: tienen tamaño fijo.
+
+anArray := #(3 5 6 5).
+anArray at:1  put:42. 
+anArray #(42 5 6 5) .
+anArray at:4 put:10.
+anArray #(42 5 6 10) .
+anArray at:5 put:10. Da error, los arrays son fijos
+
+b) Ordered Collections: su tamaño puede cambiar y los elementos se pueden repetir.
+
+
+orderedCollection := OrderedCollection with:4 with:3 with:2 with:1.
+orderedCollection  an OrderedCollection(4 3 2 1).
+orderedCollection size 4.
+orderedCollection add:2.
+orderedCollection size. 5.
+orderedCollection an OrderedCollection(4 3 2 1 2) .
+
+c) Sets: no hay repetidos y su tamaño puede cambiar.
+
+x := Set with:4 with:3 with:2 with:1.
+x a Set(4 3 2 1).
+x add:2.
+x size 4.
+x a Set(4 3 2 1).
+x add: 5.
+x a Set(5 4 3 2 1) .
+
+d) Dictionary 
+
+x := Dictionary new.
+x add:#a->4; add:#b->3; add: #c->1; add: #d->2; yourself.
+x a Dictionary(#b->3 #a->4 #d->2 #c->1 ).
+x add:#e->42.
+x a Dictionary(#b->3 #a->4 #e->42 #d->2 #c->1 ).
+x size 5.
+x values #(3 4 42 2 1).
+x at: #a 4.
+x at: #z ifAbsent:24 24.
+
+1.2 Conversión de colecciones
+
+Array to orderedCollection, set.
+
+array := #(1 2 3).
+array asOrderedCollection. an OrderedCollection(1 2 3).
+array asSet. a Set(1 2 3) .
+
+Set to array
+
+set := #(4 3 2 1).
+set #(4 3 2 1) .
+set asArray. #(4 3 2 1) .
+
+Dictionary to array (devuelve los valores)
+
+x := Dictionary new.
+x add: #a->4; add: #b->3; add: #c->1; add: #d->2; yourself.
+x a Dictionary(#b->3 #a->4 #d->2 #c->1 ).
+x asArray #(3 4 2 1).
+
