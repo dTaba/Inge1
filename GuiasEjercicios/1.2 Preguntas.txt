@@ -1,1 +1,0 @@
-Al crear un diccionario, que es yourself? x add: #a->4; add: #b->3; add: #c->1; add: #d->2; yourself.
