@@ -1,5 +1,6 @@
-# _Respuestas Guía 1.2_
-**0.1 Debugger** 
+# _Guía 1.2_
+## 0. Debugger
+**0.1** 
 
 _¿Cuál es la diferencia entre las acciones Into, Over y Through (en el menú del debugger)?_
 
@@ -19,7 +20,8 @@ _Recorrer el código con Into hasta la última línea del método m2. Luego hace
 
 El debugger va a quedar ubicado en la primera línea del mensaje. Aunque el debugger vuelva a esa línea, el valor del colaborador aVar se vió modificado, es decir, aunque vuelvas a la primera línea del mensaje el valor del colaborador se mantiene, no se resetea.
 
-**1.1 Colecciones**
+## 1. Colecciones
+**1.1**
 
 **Array**: tienen tamaño fijo.
 ```
@@ -260,3 +262,115 @@ elements do: [:elem | sumaParcial := sumaParcial + elem].
 ^sumaParcial.
 ```
 Utilzando mensaje para la **suma**:
+```
+| elements |
+
+elements := #(1 3 5).
+
+^elements sum.
+```
+Utilzando mensaje **collect and fold** y el mensaje **inject into**:
+
+```
+| elements |
+
+elements := #(1 3 5).
+
+elements collect: [:elem | elem]  andFold: [:arg1 :arg2 | arg1 + arg2]. 9 .
+
+elements inject: 0 into: [:subTotal :next | subTotal + next].
+```
+El mensaje "**inject:into:**" tiene dos **colaboradores** los cuales están representados por los argumentos :subTotal y :next.
+
+**1.18 Algoritmo para extraer solo las vocales en el orden que aparecen en un string:**
+
+```
+| texto |
+
+texto := 'abcdefguijp'.
+
+^ texto select: [:letter | letter isVowel]. 'aeui' .
+```
+
+Si bien el mensaje select: no aparece en la clase **String**, lo puedo usar debido a que es una subclase de **CharacterSequence** que a su vez es una subclase de **SequenceableCollection**. Por tanto la clase String hereda los mensajes de las colecciones.
+ 
+ ## 2. Bloques (Closures), Símbolos y Medidas
+
+**2.1 ¿Cuál es la definición de Blocks que se encuentra en el libro Smalltalk-80 The Language and its Implementation?**
+
+Según el libro _Smalltalk 80_, los bloques son objetos usados en varias de las **estructuras de control** en Smalltalk 80. Estos representan una secuencia diferida / postergada de acciones y consisten de una secuencia de **expresiones** separadas por puntos y delimitadas por corchetes. Estos bloques se ejecutan solo cuando reciben el mensaje unario **value**.
+
+Por ejemplo 4 timesRepeat: [amount - amount + amount] lo que hace es enviarle el mensaje value 4 veces al bloque.
+
+Un **closure** siempre retorna lo último que se evalúa (cuando se le pasa el mensaje **value**), por ejemplo:
+
+```
+| x |
+x := [ y := 1. z := 2. ].
+x value. 2.
+```
+
+A su vez podemos acceder a variables definidas **dentro** de un bloque fuera del mismo, por ejemplo:
+```
+| x |
+x := [ y := 1. z := 2. ].
+x value.
+y. 1.
+```
+Las variables definidas **fuera** del bloque se pueden usar dentro del mismo.
+Un ejemplo de un bloque con 2 parámetros podría ser:
+```
+| x |
+x :=[:num1 :num2| num1 + num2].
+x valueWithArguments: #(2 5). 7.
+```
+**3.1. ¿Cuál es la definición de Symbol que se encuentra en el libro
+Smalltalk-80 The Language and its Implementation.?**
+
+Según el libro _Smalltalk 80_, los símbolos son objetos que representan strings usados para nombres en el sistema, por ejemplo:
+
+ - #bill
+ - #M63
+
+Todos los símbolos son únicos, no hay 2 iguales. Eso significa que cada símbolo tiene una **única instancia**. Si creas dos símbolos con el mismo nombre, ambos se refieren al mismo **objeto en memoria**. Por ejemplo:
+
+```
+| x y |
+x := #pepe
+y := #pepe
+x = y. True.
+```
+
+Los símbolos también se pueden concatenar:
+
+```
+#Hello , #World, #!'HelloWorld!'.
+```
+
+**4.2. Evalúe estas colaboraciones, ¿Qué resultado esperaba? ¿Cuál Obtuvo?**
+
+```
+10 * peso + 10 * dollar
+```
+
+Evaluar esto va a dar un error ya que estás sumando una **SimpleMeasure** con el 10 (hacen falta los paréntesis)
+
+```
+10 * peso + (10 * dollar).  El resultado que da es: 10 * dollars + 10 * pesos .
+10 * peso + (10 * dollar) - (2 * dollar). El resultado que da es: 10 * pesos + 8 * dollars .
+10 * peso + (10 * dollar) - (2 * dollar) - (8 * dollar). El resultado que da es: 10 * pesos.
+```
+```
+(10 * peso) amount. 10. 
+(10 * peso) unit. peso.
+```
+```
+(10 * peso) * 5. 50 * pesos .
+(10 * peso) * (5 * peso). 50 * pesos * pesos
+```
+
+Así puedo crear la medida del peso:
+
+```
+peso := BaseUnit nameForOne: 'peso' nameForMany: 'pesos' sign: $$
+```
