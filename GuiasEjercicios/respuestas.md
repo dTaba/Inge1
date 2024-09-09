@@ -24,7 +24,7 @@ El debugger va a quedar ubicado en la primera línea del mensaje. Aunque el debu
 **1.1**
 
 **Array**: tienen tamaño fijo.
-```
+```Smalltalk
 anArray := #(3 5 6 5).
 anArray at:1  put:42. 
 anArray #(42 5 6 5) .
@@ -36,7 +36,7 @@ anArray at:5 put:10. Da error, los arrays son fijos.
 ```
 **Ordered Collections**: su tamaño puede cambiar y los elementos se pueden repetir.
 
-```
+```Smalltalk
 orderedCollection := OrderedCollection with:4 with:3 with:2 with:1.
 orderedCollection an OrderedCollection(4 3 2 1).
 
@@ -50,7 +50,7 @@ orderedCollection an OrderedCollection(4 3 2 1 2) .
 
 
 **Sets**: no hay repetidos y su tamaño puede cambiar.
-```
+```Smalltalk
 x := Set with:4 with:3 with:2 with:1.
 x a Set(4 3 2 1).
 
@@ -62,7 +62,7 @@ x add: 5.
 x a Set(5 4 3 2 1) .
 ```
 **Diccionarios**
-```
+```Smalltalk
 x := Dictionary new.
 x add: #a->4; add: #b->3; add: #c->1; add: #d->2; yourself.
 x a Dictionary(#b->3 #a->4 #d->2 #c->1).
@@ -79,7 +79,7 @@ x at: #z ifAbsent:24 24.
 **1.2 Conversión de colecciones**
 
 Array to orderedCollection, set:
-```
+```Smalltalk
 array := #(1 2 3).
 
 array asOrderedCollection. an OrderedCollection(1 2 3).
@@ -87,13 +87,13 @@ array asOrderedCollection. an OrderedCollection(1 2 3).
 array asSet. a Set(1 2 3) .
 ```
 Set to array:
-```
+```Smalltalk
 set := #(4 3 2 1).
 set #(4 3 2 1) .
 set asArray. #(4 3 2 1) .
 ```
 Dictionary to array (devuelve los valores):
-```
+```Smalltalk
 x := Dictionary new.
 x add: #a->4; add: #b->3; add: #c->1; add: #d->2; yourself.
 x a Dictionary(#b->3 #a->4 #d->2 #c->1 ).
@@ -103,7 +103,7 @@ x asArray #(3 4 2 1).
 **1.8 Algoritmo para encontrar números impares**:
 
 Original:
-```
+```Smalltalk
 | elements index odds |
 
 elements:= #(1 2 5 6 9).
@@ -120,7 +120,7 @@ index := index +1.
 ```
 
 Usando **do**:
-```
+```Smalltalk
 | elements odds |
 
 elements := #(1 2 5 6 9 10 11).
@@ -131,7 +131,7 @@ elements do: [:elem | elem odd ifTrue:[odds add: elem.]].
 ^odds. 
 ```
 Usando **select**:
-```
+```Smalltalk
 | elements odds |
 
 elements := #(1 2 5 6 9 10 11).
@@ -145,7 +145,7 @@ odds := elements select: [:elem | elem odd].
 **1.10 Algoritmo que devuelve el doble de cada número:**
 	
 Usando **while**:
-```
+```Smalltalk
 | elements double index |
 
 elements := #(1 2 5 6 9 10 11).
@@ -162,7 +162,7 @@ index := 1.
 ^double
 ```
 Usando **do**:
-```
+```Smalltalk
 | elements double |
 
 elements := #(1 2 5 6 9 10 11).
@@ -174,7 +174,7 @@ elements do: [:elem | double add: elem * 2 ].
 ```
 Usando un mensaje **específico**:
 
-```
+```Smalltalk
 | elements |
 
 elements := (#(1 2 5 6 9 10 11))*2.
@@ -186,7 +186,7 @@ elements := (#(1 2 5 6 9 10 11))*2.
 
 Con **while**:
 
-```
+```Smalltalk
 | elements index |
 
 elements := #(1 3 5 7 9 10 12).
@@ -203,7 +203,7 @@ index := 1.
 
 Con **do**:
 
-```
+```Smalltalk
 | elements |
 
 elements := #(1 3 5 7 9 10 12).
@@ -211,7 +211,7 @@ elements do: [:elem | elem even ifTrue: [^elem.]].
 ```
 Con un mensaje **específico**:
 
-```
+```Smalltalk
 | elements |
 
 elements := #(1 3 5 7 9 10 12).
@@ -223,7 +223,7 @@ Cuando usamos estos algoritmos con una colección sin pares se retorna la lista 
 
 Con **error** al no encontrar pares:
 
-```
+```Smalltalk
 | elements |
 
 elements := #(1 3 5 7 9).
@@ -235,7 +235,7 @@ elements detect: [:elem | elem even] ifNone:[^'No se encontró un número par'.]
 
 Con **while**:
 
-```
+```Smalltalk
 | elements index sumaParcial |
 
 elements := #(1 3 5 7 9).
@@ -251,7 +251,7 @@ sumaParcial := 0.
 ```
 Con **do**:
 
-```
+```Smalltalk
 | elements sumaParcial |
 
 elements := #(1 3 5 7 9).
@@ -262,7 +262,7 @@ elements do: [:elem | sumaParcial := sumaParcial + elem].
 ^sumaParcial.
 ```
 Utilzando mensaje para la **suma**:
-```
+```Smalltalk
 | elements |
 
 elements := #(1 3 5).
@@ -271,7 +271,7 @@ elements := #(1 3 5).
 ```
 Utilzando mensaje **collect and fold** y el mensaje **inject into**:
 
-```
+```Smalltalk
 | elements |
 
 elements := #(1 3 5).
@@ -284,7 +284,7 @@ El mensaje "**inject:into:**" tiene dos **colaboradores** los cuales están repr
 
 **1.18 Algoritmo para extraer solo las vocales en el orden que aparecen en un string:**
 
-```
+```Smalltalk
 | texto |
 
 texto := 'abcdefguijp'.
@@ -304,14 +304,14 @@ Por ejemplo 4 timesRepeat: [amount - amount + amount] lo que hace es enviarle el
 
 Un **closure** siempre retorna lo último que se evalúa (cuando se le pasa el mensaje **value**), por ejemplo:
 
-```
+```Smalltalk
 | x |
 x := [ y := 1. z := 2. ].
 x value. 2.
 ```
 
 A su vez podemos acceder a variables definidas **dentro** de un bloque fuera del mismo, por ejemplo:
-```
+```Smalltalk
 | x |
 x := [ y := 1. z := 2. ].
 x value.
@@ -319,7 +319,7 @@ y. 1.
 ```
 Las variables definidas **fuera** del bloque se pueden usar dentro del mismo.
 Un ejemplo de un bloque con 2 parámetros podría ser:
-```
+```Smalltalk
 | x |
 x :=[:num1 :num2| num1 + num2].
 x valueWithArguments: #(2 5). 7.
@@ -334,7 +334,7 @@ Según el libro _Smalltalk 80_, los símbolos son objetos que representan string
 
 Todos los símbolos son únicos, no hay 2 iguales. Eso significa que cada símbolo tiene una **única instancia**. Si creas dos símbolos con el mismo nombre, ambos se refieren al mismo **objeto en memoria**. Por ejemplo:
 
-```
+```Smalltalk
 | x y |
 x := #pepe
 y := #pepe
@@ -343,34 +343,34 @@ x = y. True.
 
 Los símbolos también se pueden concatenar:
 
-```
+```Smalltalk
 #Hello , #World, #!'HelloWorld!'.
 ```
 
 **4.2. Evalúe estas colaboraciones, ¿Qué resultado esperaba? ¿Cuál Obtuvo?**
 
-```
+```Smalltalk
 10 * peso + 10 * dollar
 ```
 
 Evaluar esto va a dar un error ya que estás sumando una **SimpleMeasure** con el 10 (hacen falta los paréntesis)
 
-```
+```Smalltalk
 10 * peso + (10 * dollar).  El resultado que da es: 10 * dollars + 10 * pesos .
 10 * peso + (10 * dollar) - (2 * dollar). El resultado que da es: 10 * pesos + 8 * dollars .
 10 * peso + (10 * dollar) - (2 * dollar) - (8 * dollar). El resultado que da es: 10 * pesos.
 ```
-```
+```Smalltalk
 (10 * peso) amount. 10. 
 (10 * peso) unit. peso.
 ```
-```
+```Smalltalk
 (10 * peso) * 5. 50 * pesos .
 (10 * peso) * (5 * peso). 50 * pesos * pesos
 ```
 
 Así puedo crear la medida del peso:
 
-```
+```Smalltalk
 peso := BaseUnit nameForOne: 'peso' nameForMany: 'pesos' sign: $$
 ```
