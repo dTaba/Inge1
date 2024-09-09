@@ -374,3 +374,15 @@ Así puedo crear la medida del peso:
 ```Smalltalk
 peso := BaseUnit nameForOne: 'peso' nameForMany: 'pesos' sign: $$
 ```
+Para crear los centímetros a partir de los metros hago esto:
+```Smalltalk
+centimetro := ProportionalDerivedUnit baseUnit: metros conversionFactor: 1/100 nameForOne: 'centimetro' nameForMany: 'centimetros' sign: 'cm'.
+```
+
+**4.11 Definir los bitcoins y sumar 1 btc + 10000 pesos**
+
+_Usar un MeasureConverter basándose en una ConversionTable._
+
+```Smalltalk
+bitcoin := ProportionalDerivedUnit baseUnit:pesos conversionFactor:70000  nameForOne: 'bitcoin' nameForMany: 'bitcoins' sign: 'btc'.
+```
